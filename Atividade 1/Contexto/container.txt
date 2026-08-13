@@ -12,10 +12,13 @@ Person(comunidade, "Comunidade Externa", "usuário autenticado como comunidade e
 
 
 System_Boundary(system, "TADSXANDRIA BIBLIOTECA") {
-  Container(ini, "Listar projetos", "Pensar", "Interface para visiualizar projetos cadastrados")
-  Container(cad, "Autenticação de Usuário", "Pensar", "Interface para visiualizar projetos cadastrados")
-  Container(backend, "Aplicação Backend", "Pensar", "API que fornece os serviços para autenticação de clientes HTTP+JSON")
-  ContainerDb(database, "Banco de Dados", "PostgreSQL 18", "Armazena dados dos usuários e boletos")
+  Container(ini, "Visualizar projetos", "Pensar", "Permite a visualização dos projetos")
+
+  Container(proj, "Gerência de projetos", "Pensar", "Permite a gerência de projetos")
+  Container(proj_back, "Projeto Cadastro", "Pensar", "Usa a API do usuário para manuseio de dados")
+
+  Container(ini_back, "Serviço de listagem", "Pensar", "Processa os projetos cadastrados mais avaliados")
+  ContainerDb(database, "Banco de Dados", "Pensar", "Armazena dados dos projetos")
 }
 
 System_Ext(suap, "SUAP", "Auxilia a vinculação dos dados com o sistema, através da matrícula do SUAP")
@@ -23,16 +26,19 @@ System_Ext(github, "GitHub", "Auxilia a vinculação dos dados com o sistema, at
 System_Ext(google, "Google", "Auxilia a vinculação dos dados com o sistema, através da conta Google")
 
 Rel(visitante, ini, "Visita a plataforma para conhecê-la")
-Rel(aluno, ini, "Edita os projetos que participa, sendo como orientado")
-Rel(professor, ini, "Gerencia os projetos que o cadastrou, sendo como orientador")
+Rel(aluno, ini, "Interage nos projetos cadastrados")
+Rel(professor, ini, "Interage nos projetos cadastrados")
 Rel(comunidade, ini, "Interage nos projetos cadastrados")
 
-Rel(ini, suap, "Integração com a API externa do SUAP")
-Rel(ini, github, "Integração com a API externa do GitHub")
-Rel(ini, google, "Integração com a API externa da Google")
+Rel(aluno, proj, "Edita os projetos que participa, sendo como orientado")
+Rel(professor, proj, "Gerencia os projetos que o cadastrou, sendo como orientador")
+
+Rel(proj, proj_back, "Faz a chamado do cadastro")
+Rel(proj_back, database, "Lê e escrever os dados para o banco")
 
 
-Rel(ini, backend, "Chamada para a API (JSON/HTTP)")
-Rel(backend, database, "Acessa informações dos usuários e boletos")
+
+Rel(ini, ini_back, "Chamada para o processo de listagem")
+Rel(ini_back, database, "Acessa informações dos projetos")
 
 @enduml
