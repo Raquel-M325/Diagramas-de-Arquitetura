@@ -1,0 +1,28 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LANDSCAPE()
+
+title Diagrama de Contexto 
+
+Person(visitante, "Visitante", "Usuário não autenticado que consome a plataforma")
+Person(aluno, "Aluno", "Aluno que pode participar dos projetos")
+Person(professor, "Professor", "Professor que pode criar dos projetos")
+Person(comunidade, "Comunidade Externa", "usuário autenticado como comunidade externa que interage melhor na plataforma")
+
+System(system, "TADSXANDRIA BIBLIOTECA", "Permite que os clientes visualizem e gerenciem os projetos da Instituição") 
+System_Ext(suap, "SUAP", "Auxilia a vinculação dos dados com o sistema, através da matrícula do SUAP")
+System_Ext(github, "GitHub", "Auxilia a vinculação dos dados com o sistema, através da conta GitHub")
+System_Ext(google, "Google", "Auxilia a vinculação dos dados com o sistema, através da conta Google")
+
+
+Rel(visitante, system, "Visita a plataforma para conhecê-la")
+Rel(aluno, system, "Edita os projetos que participa, sendo como orientado")
+Rel(professor, system, "Gerencia os projetos que o cadastrou, sendo como orientador")
+Rel(comunidade, system, "Interage nos projetos cadastrados")
+
+Rel(system, suap, "Integração com a API externa do SUAP")
+Rel(system, github, "Integração com a API externa do GitHub")
+Rel(system, google, "Integração com a API externa da Google")
+
+@enduml
