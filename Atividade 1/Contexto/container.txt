@@ -1,0 +1,38 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LANDSCAPE()
+
+title Diagrama de Containers
+
+Person(visitante, "Visitante", "Usuário não autenticado que consome a plataforma")
+Person(aluno, "Aluno", "Aluno que pode participar dos projetos")
+Person(professor, "Professor", "Professor que pode criar dos projetos")
+Person(comunidade, "Comunidade Externa", "usuário autenticado como comunidade externa que interage melhor na plataforma")
+
+
+System_Boundary(system, "TADSXANDRIA BIBLIOTECA") {
+  Container(ini, "Listar projetos", "Pensar", "Interface para visiualizar projetos cadastrados")
+  Container(cad, "Autenticação de Usuário", "Pensar", "Interface para visiualizar projetos cadastrados")
+  Container(backend, "Aplicação Backend", "Pensar", "API que fornece os serviços para autenticação de clientes HTTP+JSON")
+  ContainerDb(database, "Banco de Dados", "PostgreSQL 18", "Armazena dados dos usuários e boletos")
+}
+
+System_Ext(suap, "SUAP", "Auxilia a vinculação dos dados com o sistema, através da matrícula do SUAP")
+System_Ext(github, "GitHub", "Auxilia a vinculação dos dados com o sistema, através da conta GitHub")
+System_Ext(google, "Google", "Auxilia a vinculação dos dados com o sistema, através da conta Google")
+
+Rel(visitante, ini, "Visita a plataforma para conhecê-la")
+Rel(aluno, ini, "Edita os projetos que participa, sendo como orientado")
+Rel(professor, ini, "Gerencia os projetos que o cadastrou, sendo como orientador")
+Rel(comunidade, ini, "Interage nos projetos cadastrados")
+
+Rel(ini, suap, "Integração com a API externa do SUAP")
+Rel(ini, github, "Integração com a API externa do GitHub")
+Rel(ini, google, "Integração com a API externa da Google")
+
+
+Rel(ini, backend, "Chamada para a API (JSON/HTTP)")
+Rel(backend, database, "Acessa informações dos usuários e boletos")
+
+@enduml
