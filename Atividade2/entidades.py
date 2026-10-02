@@ -17,14 +17,16 @@ class Categoria:
     def __str__(self):
         return self.descricao
     
-# amamsabjsbasba  perfil = Perfil().funcao
 
 class Usuario:
-    def __init__(self, id, nome, perfil:Perfil):
+    def __init__(self, id, nome, perfil:Perfil, email, senha):
         self.id = id
         self.nome = nome
         self.perfil = perfil
-    
+        self.email = email
+        self.senha = senha 
+        
+
     def __str__(self):
         return f'{self.nome} - {self.perfil}'
     
