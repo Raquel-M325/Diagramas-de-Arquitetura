@@ -2,20 +2,38 @@ from entidades import Categoria
 from DAO.CategoriaDAO import *
 
 class CategoriaRepository:
-    def validar(categoria):
-        if categoria.id 
-    
-    def incluir(categoria): # Cadastrar categoria
-        pass
-    
-    def alterar(categoria):
-        pass
-    
-    def excluir(categoria):
-        pass
-    
-    def obter_por_id(id):
-        pass
-    
-    def listar():
-        pass
+
+    def __init__(self):
+        self.dao = CategoriaDAO()   
+
+    def validar(self, categoria):
+        if categoria.id is None:
+            raise ValueError("O ID da categoria é obrigatório.")  
+
+        if not categoria.descricao:
+            raise ValueError("A descrição da categoria é obrigatória.")  
+
+    def incluir(self, categoria):
+        self.validar(categoria)
+
+        if self.dao.obter_por_id(categoria.id) is not None:
+            raise ValueError("Já existe uma categoria com esse ID.")
+
+        self.dao.incluir(categoria)
+
+    def alterar(self, categoria):
+        self.validar(categoria)
+
+        if self.dao.obter_por_id(categoria.id) is None:
+            raise ValueError("Categoria não encontrada.")
+
+        self.dao.alterar(categoria)
+
+    def excluir(self, categoria):
+        if self.dao.obter_por_id(categoria.id) is None:
+            raise ValueError("Categoria não encontrada.")
+
+        self.dao.excluir(categoria)
+
+    def obter_por_id(self, id):
+        return self.dao.obter_por_id(id)
