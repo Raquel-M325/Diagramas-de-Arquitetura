@@ -1,20 +1,20 @@
 from entidades import Projeto
 from DAO.ProjetoDAO import *
 
-class ProjetoRepository(IProjetoDAO):
-    def validar():
+class ProjetoRepository:
+    def validar(projeto):
         pass
     
-    def incluir():
+    def incluir(projeto):
         pass
     
-    def alterar():
+    def alterar(projeto):
         pass
     
-    def excluir():
+    def excluir(projeto):
         pass
     
-    def obter_por_id():
+    def obter_por_id(id):
         pass
     
     def listar():

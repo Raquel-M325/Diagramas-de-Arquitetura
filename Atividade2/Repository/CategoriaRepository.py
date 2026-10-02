@@ -1,20 +1,20 @@
 from entidades import Categoria
 from DAO.CategoriaDAO import *
 
-class CategoriaRepository(ICategoriaDAO):
-    def validar():
+class CategoriaRepository:
+    def validar(categoria):
+        if categoria.id 
+    
+    def incluir(categoria): # Cadastrar categoria
         pass
     
-    def incluir(): # Cadastrar categoria
+    def alterar(categoria):
         pass
     
-    def alterar():
+    def excluir(categoria):
         pass
     
-    def excluir():
-        pass
-    
-    def obter_por_id():
+    def obter_por_id(id):
         pass
     
     def listar():
