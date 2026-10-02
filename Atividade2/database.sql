@@ -1,20 +1,23 @@
-create table Usuario(
-    id integer primary key autoincrement not null,
-    nome varchar(255) not null,
-    perfil varchar(100) not null 
+CREATE TABLE IF NOT EXISTS Usuario (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    perfil TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    senha TEXT NOT NULL
 );
 
-create table Projeto(
-    id integer primary key autoincrement not null,
-    descricao varchar(255) not null,
-    data_criacao date default current_date, 
-    resumo varchar(255) not null,
-    foreign key (id) references Categoria(id),
-    foreign key (id) references Usuario(id)
+CREATE TABLE IF NOT EXISTS Categoria (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    descricao TEXT NOT NULL UNIQUE
 );
 
-create table Categoria(
-    id integer primary key autoincrement not null,
-    descricao varchar(255) not null 
-
+CREATE TABLE IF NOT EXISTS Projeto (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    descricao TEXT NOT NULL,
+    data_criacao TEXT NOT NULL DEFAULT CURRENT_DATE,
+    resumo TEXT NOT NULL,
+    categoria_id INTEGER NOT NULL,
+    orientador_id INTEGER NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id),
+    FOREIGN KEY (orientador_id) REFERENCES Usuario(id)
 );
