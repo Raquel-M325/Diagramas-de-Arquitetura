@@ -79,13 +79,13 @@ class UsuarioRepository:
 
         self.dao.incluir(usuario)
 
-    def alterar(self, usuario):
+    def alterar(self, usuario, alteracoes):
         self.validar(usuario)
 
         if self.dao.obter_por_id(usuario.id) is None:
             raise ValueError("usuario não encontrada.")
 
-        self.dao.alterar(usuario)
+        self.dao.alterar(usuario, alteracoes)
 
     def excluir(self, usuario):
         if self.dao.obter_por_id(usuario.id) is None:

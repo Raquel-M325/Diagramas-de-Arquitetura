@@ -21,13 +21,13 @@ class CategoriaRepository:
 
         self.dao.incluir(categoria)
 
-    def alterar(self, categoria):
+    def alterar(self, categoria, alteracoes):
         self.validar(categoria)
 
         if self.dao.obter_por_id(categoria.id) is None:
             raise ValueError("Categoria não encontrada.")
 
-        self.dao.alterar(categoria)
+        self.dao.alterar(categoria, alteracoes)
 
     def excluir(self, categoria):
         if self.dao.obter_por_id(categoria.id) is None:

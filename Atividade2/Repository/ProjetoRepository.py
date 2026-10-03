@@ -46,13 +46,13 @@ class ProjetoRepository:
 
         self.dao.incluir(projeto)
 
-    def alterar(self, projeto):
+    def alterar(self, projeto, alteracoes):
         self.validar(projeto)
 
         if self.dao.obter_por_id(projeto.id) is None:
             raise ValueError("projeto não encontrada.")
 
-        self.dao.alterar(projeto)
+        self.dao.alterar(projeto, alteracoes)
 
     def excluir(self, projeto):
         if self.dao.obter_por_id(projeto.id) is None:
