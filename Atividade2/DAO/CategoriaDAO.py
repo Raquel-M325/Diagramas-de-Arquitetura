@@ -1,63 +1,49 @@
 from entidades import Categoria
-from abc import ABC, abstractmethod
+from DAO.ConexaoDB import ConexaoDB
+from Interface.ICategoriaDAO import ICategoriaDAO
 
-import sqllite
-class ICategoriaDAO(ABC):
-    def __init__(self)
-
-    def incluir(self):
-        pass
-    
-    def alterar(self):
-        pass
-    
-    def excluir(self):
-        pass
-    
-    def obter_por_id(self):
-        pass
-    
-    def listar(self):
-        pass
 
 class CategoriaDAO(ICategoriaDAO):
-    def __init__(self)
-        self.conexao = ConexaoDB().obterConexao()
+    def __init__(self):
+        self.db = ConexaoDB()
+        self.conexao = self.db.obterConexao()
         
 
     def incluir(self, categoria:Categoria):
         sql = f'''insert into Categoria(
                 descricao
         )
-        values({categoria.descricao});
+        values('{categoria.descricao}');
         '''
-        self.conexao.executar_comando("insert", sql, self.conexao)
+        self.db.executar_comando("insert", sql, self.conexao)
     
     def alterar(self, categoria:Categoria, alteracoes):
         sql = f'''
                 update Categoria set{alteracoes}
                 where id = {categoria.id};
         '''
-        self.conexao.executar_comando("update", sql, self.conexao)
+        self.db.executar_comando("update", sql, self.conexao)
     
     def excluir(self, categoria:Categoria):
         sql = f''' delete from Categoria
                     where id = {categoria.id};
         
         '''
-        self.conexao.executar_comando("delete", sql, self.conexao)
+        self.db.executar_comando("delete", sql, self.conexao)
     
-    def obter_por_id(self, categoria:Categoria):
+    def obter_por_id(self, id):
         sql = f''' select * from Categoria
-                    where id = {categoria.id};
+                    where id = {id};
 
         '''
-        registro = self.conexao.executar_comando("select", sql, self.conexao)
+        registro = self.db.executar_comando("select", sql, self.conexao)
         
-        return Categoria(registro["id"], registro["descricao"])
+        if not registro:
+            return None
+        return Categoria(registro[0]["id"], registro[0]["descricao"])
     
     def listar(self):
-        registros = self.conexao.executar_select("Categoria", self.conexao)
+        registros = self.db.executar_select("Categoria", self.conexao)
         
         categorias = []
         for registro in registros:

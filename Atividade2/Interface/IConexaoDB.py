@@ -1,11 +1,16 @@
-class IConexaoDB:
+from abc import ABC, abstractmethod
 
+
+class IConexaoDB(ABC):
+
+    @abstractmethod
     def obterConexao(self):
         pass
 
-    def executar_comando(self, acao):
+    @abstractmethod
+    def executar_comando(self, tipo, acao, conexao):
         pass
 
-    def executar_select(self, tabela):
+    @abstractmethod
+    def executar_select(self, tabela, conexao):
         pass
-

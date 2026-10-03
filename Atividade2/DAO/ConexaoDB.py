@@ -1,6 +1,6 @@
-from Atividade2.Interface import IConexaoDB
+from Interface.IConexaoDB import IConexaoDB
 import sqlite3
-
+from termcolor import cprint
 
 class ConexaoDB(IConexaoDB):
 
@@ -12,7 +12,7 @@ class ConexaoDB(IConexaoDB):
             cls.__singleton = super().__new__(cls)
 
             cls.__singleton.conexao = sqlite3.connect('db_atividade2.sqlite3')
-
+            cls.__singleton.conexao.row_factory = sqlite3.Row
             cls.__singleton.conexao.execute("PRAGMA foreign_keys = ON")
 
             cprint(f'\n **Conectou ao banco de dados!**\n', "white", "on_light_red", attrs=["bold"])
