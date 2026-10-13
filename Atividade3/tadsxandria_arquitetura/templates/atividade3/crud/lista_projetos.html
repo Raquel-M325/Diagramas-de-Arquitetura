@@ -1,0 +1,18 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}Projetos · TADSXandria{% endblock %}
+{% block content %}
+<div class="secao-titulo cabecalho-lista">
+    <div><span class="eyebrow">Acervo</span><h1>Projetos</h1><p>Produções acadêmicas publicadas na plataforma.</p></div>
+    <a class="botao primario" href="{% url 'atividade3:projeto_criar' %}">Novo projeto</a>
+</div>
+<div class="painel tabela-container">
+    <table>
+        <thead><tr><th>Projeto</th><th>Categoria</th><th>Orientador</th><th>Data</th><th class="coluna-acoes">Ações</th></tr></thead>
+        <tbody>
+        {% for projeto in projetos %}
+            <tr><td><a class="nome-item" href="{% url 'atividade3:projeto_detalhe' projeto.id %}">{{ projeto.descricao }}</a></td><td><span class="tag">{{ projeto.categoria.descricao }}</span></td><td>{{ projeto.orientador.nome }}</td><td>{{ projeto.data_criacao|date:'d/m/Y' }}</td><td class="coluna-acoes"><a href="{% url 'atividade3:projeto_editar' projeto.id %}">Editar</a><a class="texto-perigo" href="{% url 'atividade3:projeto_excluir' projeto.id %}">Excluir</a></td></tr>
+        {% empty %}<tr><td colspan="5" class="vazio-tabela">Nenhum projeto cadastrado.</td></tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}Confirmar exclusão · TADSXandria{% endblock %}
+{% block content %}
+<div class="pagina-estreita">
+    <div class="painel confirmar">
+        <span class="icone-alerta">!</span>
+        <span class="eyebrow">Ação permanente</span>
+        <h1>Excluir {{ tipo }}?</h1>
+        <p>Você está prestes a excluir <strong>{{ objeto }}</strong>. Essa ação não pode ser desfeita.</p>
+        <form method="post" class="acoes">
+            {% csrf_token %}
+            <button class="botao perigo" type="submit">Sim, excluir</button>
+            <a class="botao secundario" href="{% url voltar pk=pk %}">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

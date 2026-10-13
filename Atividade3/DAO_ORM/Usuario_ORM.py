@@ -1,56 +1,55 @@
-from Atividade2.entidades import Usuario
-from Atividade2.DAO.ConexaoDB import ConexaoDB
-from Atividade2.Interface.IUsuarioDAO import IUsuarioDAO
+from dataclasses import asdict
 
-    
+from django.forms.models import model_to_dict
+
+from atividade3.models import UsuarioModel
+from entidades import Perfil, Usuario
+from Interface.IUsuarioDAO import IUsuarioDAO
+
+from DAO_ORM.Conexao_ORM import ConexaoDB_ORM
+
+
 class UsuarioDAO(IUsuarioDAO):
-    def __init__(self):
-        self.db = ConexaoDB()
-        self.conexao = self.db.obterConexao()
-        
+    def __init__(self, conexao: ConexaoDB_ORM):
+        self._conexao = conexao
+        self._conexao.obter_conexao()
 
-    def incluir(self, usuario:Usuario):
-        sql = f'''insert into Usuario(
-                nome,
-                perfil,
-                email,
-                senha
-                
-        )
-        values('{usuario.nome}', '{usuario.perfil}', '{usuario.email}', '{usuario.senha}');
-        '''
-        self.db.executar_comando("insert", sql, self.conexao)
-    
-    def alterar(self, usuario:Usuario, alteracoes):
-        sql = f'''
-                update Usuario set{alteracoes}
-                where id = {usuario.id};
-        '''
-        self.db.executar_comando("update", sql, self.conexao)
-    
-    def excluir(self, usuario:Usuario):
-        sql = f''' delete from Usuario
-                    where id = {usuario.id};
-        
-        '''
-        self.db.executar_comando("delete", sql, self.conexao)
-    
-    def obter_por_id(self, id):
-        sql = f''' select * from Usuario
-                    where id = {id};
+    @staticmethod
+    def _converter_model_para_dominio(registro) -> Usuario:
+        dados = model_to_dict(registro)
+        dados["perfil"] = Perfil[dados["perfil"]]
+        return Usuario(**dados)
 
-        '''
-        registro = self.db.executar_comando("select", sql, self.conexao)
-        
-        if not registro:
-            return None
-        return Usuario(registro[0]["id"], registro[0]["nome"], registro[0]["perfil"], registro[0]["email"], registro[0]["senha"])
-    
-    def listar(self):
-        registros = self.db.executar_select("Usuario", self.conexao)
-        
-        usuarios = []
-        for registro in registros:
-            usuarios.append(Usuario(registro["id"], registro["nome"], registro["perfil"], registro["email"], registro["senha"]))
+    def incluir(self, usuario: Usuario) -> Usuario:
+        dados = asdict(usuario)
+        dados["perfil"] = usuario.perfil.name
+        model_instance = UsuarioModel(**dados)
+        model_instance.save(using=self._conexao.DB_ALIAS)
+        return self._converter_model_para_dominio(model_instance)
 
-        return usuarios
+    def alterar(self, usuario: Usuario, alteracoes=None) -> Usuario:
+        return self.incluir(usuario)
+
+    def excluir(self, usuario):
+        identificador = usuario.id if hasattr(usuario, "id") else usuario
+        UsuarioModel(id=identificador).delete(using=self._conexao.DB_ALIAS)
+
+    def obter_por_id(self, id) -> Usuario | None:
+        registro = UsuarioModel.objects.using(self._conexao.DB_ALIAS).filter(id=id).first()
+        return self._converter_model_para_dominio(registro) if registro else None
+
+    def obter_por_email(self, email) -> Usuario | None:
+        registro = UsuarioModel.objects.using(self._conexao.DB_ALIAS).filter(
+            email__iexact=email
+        ).first()
+        return self._converter_model_para_dominio(registro) if registro else None
+
+    def listar(self) -> list[Usuario]:
+        registros = UsuarioModel.objects.using(self._conexao.DB_ALIAS).all().order_by("nome")
+        return [self._converter_model_para_dominio(registro) for registro in registros]
+
+    def listar_orientadores(self) -> list[Usuario]:
+        registros = UsuarioModel.objects.using(self._conexao.DB_ALIAS).filter(
+            perfil=Perfil.orientador.name
+        ).order_by("nome")
+        return [self._converter_model_para_dominio(registro) for registro in registros]

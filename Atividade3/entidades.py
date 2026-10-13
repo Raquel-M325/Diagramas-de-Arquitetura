@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from enum import Enum
 
 class Perfil(Enum):
@@ -9,28 +10,36 @@ class Perfil(Enum):
         self.codigo = codigo
         self.funcao = funcao
 
+@dataclass
 class Categoria:
-    def __init__(self, id, descricao):
-        self.id = id
-        self.descricao = descricao
+    id: int
+    descricao: str
     
     def __str__(self):
         return self.descricao
     
 
+@dataclass
 class Usuario:
-    def __init__(self, id, nome, perfil:Perfil, email, senha):
-        self.id = id
-        self.nome = nome
-        self.perfil = perfil
-        self.email = email
-        self.senha = senha 
+    id: int
+    nome: str
+    perfil: Perfil
+    email: str
+    senha: str
         
 
     def __str__(self):
         return f'{self.nome} - {self.perfil}'
     
+@dataclass(init=False)
 class Projeto:
+    id: int
+    descricao: str
+    categoria: Categoria
+    resumo: str
+    data_criacao: object
+    orientador: Usuario
+
     def __init__(self, id, descricao, categoria, resumo, data_publicacao, orientador:Usuario):
         self.id = id
         self.descricao = descricao

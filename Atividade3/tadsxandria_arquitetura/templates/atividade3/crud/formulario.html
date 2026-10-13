@@ -1,0 +1,27 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}{{ titulo }} · TADSXandria{% endblock %}
+{% block content %}
+<div class="pagina-estreita">
+    <div class="cabecalho-pagina">
+        <span class="eyebrow">Cadastro</span>
+        <h1>{{ titulo }}</h1>
+        <p>Preencha os campos abaixo. Os campos marcados são obrigatórios.</p>
+    </div>
+    <form method="post" class="painel formulario" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="erros">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+            <div class="grupo-campo">
+                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-label="obrigatório"> *</span>{% endif %}</label>
+                {{ field }}
+                {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<span class="erro">{{ error }}</span>{% endfor %}
+            </div>
+        {% endfor %}
+        <div class="acoes">
+            <button class="botao primario" type="submit">Salvar</button>
+            {% if pk %}<a class="botao secundario" href="{% url voltar pk=pk %}">Cancelar</a>{% else %}<a class="botao secundario" href="{% url voltar %}">Cancelar</a>{% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

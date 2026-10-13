@@ -1,0 +1,287 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #fff;
+    color: #222;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+}
+
+a {
+    color: #0645ad;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.topo {
+    border-bottom: 1px solid #aaa;
+    background: #eee;
+}
+
+.barra {
+    width: min(900px, calc(100% - 30px));
+    min-height: 58px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.barra a {
+    padding: 7px 14px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    background: #e2e2e2;
+    color: #17365d;
+    font-weight: bold;
+}
+
+.barra a:hover {
+    background: #d5d5d5;
+    text-decoration: none;
+}
+
+.conteudo {
+    width: min(900px, calc(100% - 30px));
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.inicio {
+    padding: 24px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: center;
+}
+
+.inicio h1 {
+    margin-top: 0;
+}
+
+.cabecalho-lista,
+.secao-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.cabecalho-lista h1,
+.cabecalho-lista p {
+    margin: 0 0 5px;
+}
+
+.eyebrow {
+    display: none;
+}
+
+.painel {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.tabela-container {
+    padding: 0;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background: #e8e8e8;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+.coluna-acoes {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.coluna-acoes a {
+    margin-left: 10px;
+}
+
+.nome-item {
+    font-weight: bold;
+}
+
+.botao {
+    display: inline-block;
+    padding: 9px 14px;
+    border: 1px solid #777;
+    border-radius: 2px;
+    background: #e5e5e5;
+    color: #222;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao:hover {
+    text-decoration: none;
+}
+
+.primario {
+    border-color: #777;
+    background: #ddd;
+    color: #111;
+}
+
+.perigo {
+    border-color: #8b5555;
+    background: #eadada;
+    color: #700;
+}
+
+.texto-perigo,
+.erro,
+.erros {
+    color: #a40000;
+}
+
+.pagina-estreita {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.grupo-campo {
+    margin-bottom: 16px;
+}
+
+.grupo-campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    font: inherit;
+}
+
+.erros {
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #ffe8e8;
+}
+
+.acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.link-voltar {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 3px;
+    background: #e8e8e8;
+}
+
+.dados {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.dados div {
+    padding: 10px;
+    background: #eee;
+}
+
+.dados dt {
+    font-size: .85rem;
+}
+
+.dados dd {
+    margin: 4px 0 0;
+    font-weight: bold;
+}
+
+.detalhe-meta {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirmar {
+    text-align: center;
+}
+
+.confirmar .acoes {
+    justify-content: center;
+}
+
+.icone-alerta {
+    color: #a40000;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.mensagem {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #759975;
+    background: #e8f3e8;
+}
+
+.mensagem.error {
+    border-color: #b77;
+    background: #ffe8e8;
+}
+
+.vazio,
+.vazio-tabela {
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .barra,
+    .cabecalho-lista,
+    .secao-titulo {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .barra {
+        padding: 12px 0;
+    }
+
+    .barra a {
+        text-align: center;
+    }
+
+    .dados {
+        grid-template-columns: 1fr;
+    }
+}

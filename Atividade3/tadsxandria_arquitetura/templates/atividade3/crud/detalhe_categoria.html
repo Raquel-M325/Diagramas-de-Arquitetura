@@ -1,0 +1,16 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}{{ categoria.descricao }} · TADSXandria{% endblock %}
+{% block content %}
+<div class="pagina-estreita">
+    <a class="link-voltar" href="{% url 'atividade3:categoria_lista' %}">← Voltar para categorias</a>
+    <article class="painel detalhe">
+        <span class="eyebrow">Categoria #{{ categoria.id }}</span>
+        <h1>{{ categoria.descricao }}</h1>
+        <p>Esta categoria está disponível para classificar os projetos do acervo.</p>
+        <div class="acoes">
+            <a class="botao primario" href="{% url 'atividade3:categoria_editar' categoria.id %}">Editar</a>
+            <a class="botao secundario texto-perigo" href="{% url 'atividade3:categoria_excluir' categoria.id %}">Excluir</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

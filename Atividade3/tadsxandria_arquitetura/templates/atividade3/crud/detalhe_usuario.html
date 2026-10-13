@@ -1,0 +1,19 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}{{ usuario.nome }} · TADSXandria{% endblock %}
+{% block content %}
+<div class="pagina-estreita">
+    <a class="link-voltar" href="{% url 'atividade3:usuario_lista' %}">← Voltar para usuários</a>
+    <article class="painel detalhe">
+        <span class="tag">{{ usuario.perfil.funcao }}</span>
+        <h1>{{ usuario.nome }}</h1>
+        <dl class="dados">
+            <div><dt>E-mail</dt><dd>{{ usuario.email }}</dd></div>
+            <div><dt>Identificador</dt><dd>#{{ usuario.id }}</dd></div>
+        </dl>
+        <div class="acoes">
+            <a class="botao primario" href="{% url 'atividade3:usuario_editar' usuario.id %}">Editar</a>
+            <a class="botao secundario texto-perigo" href="{% url 'atividade3:usuario_excluir' usuario.id %}">Excluir</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

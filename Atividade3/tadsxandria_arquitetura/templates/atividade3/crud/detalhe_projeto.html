@@ -1,0 +1,20 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}{{ projeto.descricao }} · TADSXandria{% endblock %}
+{% block content %}
+<div class="pagina-estreita">
+    <a class="link-voltar" href="{% url 'atividade3:projeto_lista' %}">← Voltar para projetos</a>
+    <article class="painel detalhe projeto-detalhe">
+        <div class="detalhe-meta"><span class="tag">{{ projeto.categoria.descricao }}</span><span>{{ projeto.data_criacao|date:'d/m/Y' }}</span></div>
+        <h1>{{ projeto.descricao }}</h1>
+        <p class="resumo">{{ projeto.resumo }}</p>
+        <dl class="dados">
+            <div><dt>Orientador</dt><dd>{{ projeto.orientador.nome }}</dd></div>
+            <div><dt>Contato</dt><dd>{{ projeto.orientador.email }}</dd></div>
+        </dl>
+        <div class="acoes">
+            <a class="botao primario" href="{% url 'atividade3:projeto_editar' projeto.id %}">Editar</a>
+            <a class="botao secundario texto-perigo" href="{% url 'atividade3:projeto_excluir' projeto.id %}">Excluir</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

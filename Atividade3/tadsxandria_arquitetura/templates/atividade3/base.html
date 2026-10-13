@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}TADSXandria{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'atividade3/crud.css' %}">
+</head>
+<body>
+    <header class="topo">
+        <nav class="barra" aria-label="Navegação principal">
+            <a href="{% url 'atividade3:categoria_lista' %}">Categorias</a>
+            <a href="{% url 'atividade3:usuario_lista' %}">Usuários</a>
+            <a href="{% url 'atividade3:projeto_lista' %}">Projetos</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+        {% if messages %}
+            <div class="mensagens" aria-live="polite">
+                {% for message in messages %}<div class="mensagem {{ message.tags }}">{{ message }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

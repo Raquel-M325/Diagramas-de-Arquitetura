@@ -1,0 +1,18 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}Usuários · TADSXandria{% endblock %}
+{% block content %}
+<div class="secao-titulo cabecalho-lista">
+    <div><span class="eyebrow">Pessoas</span><h1>Usuários</h1><p>Pesquisadores, orientadores e administradores.</p></div>
+    <a class="botao primario" href="{% url 'atividade3:usuario_criar' %}">Novo usuário</a>
+</div>
+<div class="painel tabela-container">
+    <table>
+        <thead><tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th class="coluna-acoes">Ações</th></tr></thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr><td><a class="nome-item" href="{% url 'atividade3:usuario_detalhe' usuario.id %}">{{ usuario.nome }}</a></td><td>{{ usuario.email }}</td><td><span class="tag">{{ usuario.perfil.funcao }}</span></td><td class="coluna-acoes"><a href="{% url 'atividade3:usuario_editar' usuario.id %}">Editar</a><a class="texto-perigo" href="{% url 'atividade3:usuario_excluir' usuario.id %}">Excluir</a></td></tr>
+        {% empty %}<tr><td colspan="4" class="vazio-tabela">Nenhum usuário cadastrado.</td></tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

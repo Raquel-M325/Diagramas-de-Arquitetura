@@ -1,0 +1,18 @@
+{% extends 'atividade3/base.html' %}
+{% block title %}Categorias · TADSXandria{% endblock %}
+{% block content %}
+<div class="secao-titulo cabecalho-lista">
+    <div><span class="eyebrow">Organização</span><h1>Categorias</h1><p>Áreas usadas para classificar o acervo.</p></div>
+    <a class="botao primario" href="{% url 'atividade3:categoria_criar' %}">Nova categoria</a>
+</div>
+<div class="painel tabela-container">
+    <table>
+        <thead><tr><th>Descrição</th><th class="coluna-acoes">Ações</th></tr></thead>
+        <tbody>
+        {% for categoria in categorias %}
+            <tr><td><a class="nome-item" href="{% url 'atividade3:categoria_detalhe' categoria.id %}">{{ categoria.descricao }}</a></td><td class="coluna-acoes"><a href="{% url 'atividade3:categoria_editar' categoria.id %}">Editar</a><a class="texto-perigo" href="{% url 'atividade3:categoria_excluir' categoria.id %}">Excluir</a></td></tr>
+        {% empty %}<tr><td colspan="2" class="vazio-tabela">Nenhuma categoria cadastrada.</td></tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
